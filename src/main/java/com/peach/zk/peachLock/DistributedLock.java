@@ -51,16 +51,16 @@ public class DistributedLock {
     }
 
     private synchronized void lock() {
-        logger.info("|| in lock");
+        //logger.info("|| in lock");
         List<String> sortedChildren = getSortedChildren();
         try {
             int index = sortedChildren.indexOf(lockPath);
             switch (index) {
                 case 0:
-                    logger.info("||so happy, I get my lock");
-                    callBack.lockAcquired();
-                    countDownLatch.countDown();
-                    break;
+                    //logger.info("||so happy, I get my lock");
+                callBack.lockAcquired();
+                countDownLatch.countDown();
+                break;
                 default:
                     String preChildren = sortedChildren.get(index - 1);
                     Stat stat = zk.exists(preChildren, new NodeChangeWatcher());
